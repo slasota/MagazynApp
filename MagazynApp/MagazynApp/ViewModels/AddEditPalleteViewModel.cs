@@ -70,12 +70,6 @@ namespace MagazynApp.ViewModels
                 };
                 await _databaseService.AddPalleteAsync(pallete);
 
-                //DEBUG
-
-                foreach (var item in await _databaseService.GetPalletesAsync())
-                {
-                    Console.WriteLine($"DEBUG: Paleta: {item.PalleteName} Utworzona: {item.CreatedAtUtc}  {item.CreatedAtUtc.}");
-                }
 
             }
             await Shell.Current.GoToAsync("..");
