@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MagazynApp.ViewModels"
+             x:Class="MagazynApp.Views.ProduktyPage"
+             Title="Lista produktów"
+                 x:Name="Page">
+
+    <Grid RowDefinitions="Auto, *" Padding="10">
+        <StackLayout Grid.Row="0">
+            <Button Text="Odśwież" Command="{Binding OdswiezCommand}" />
+            <Button Text="Dodaj produkt" Command="{Binding DodajProduktPageCommand}"/>
+            <Button Text="Usuń wszystkie" Command="{Binding DeleteAllProductsCommand}"/>
+        </StackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Produkty}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="Gray" StrokeThickness="1" Padding="20" Margin="5" StrokeShape="RoundRectangle 10,10,10,10">
+                        <!-- <HorizontalStackLayout>
+                            <Label Text="{Binding Id}" FontSize="20"/>
+                            <Label Text="{Binding Nazwa}" FontSize="20" />
+                            <ImageButton Source="edit.png" 
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=EdytujProduktCommand}" 
+                                         CommandParameter="{Binding}"/>
+                            <Button Text="Edytuj" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=EdytujProduktCommand}" CommandParameter="{Binding}"/>
+                            <Button Text="Usuń"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=UsunProduktCommand}"
+                                CommandParameter="{Binding}"
+                                BackgroundColor="Red"
+                                TextColor="White"/>
+                        </HorizontalStackLayout> -->
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto" RowDefinitions="Auto">
+                            <Label
+                                Padding="10"
+                                Grid.Column="0"
+                                Text="{Binding Id}"
+                                FontSize="20"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Grid.Column="1" 
+                                Text="{Binding Nazwa}" 
+                                FontSize="20"
+                                LineBreakMode="WordWrap"
+                                VerticalOptions="Center"/>
+                            <ImageButton 
+                                Source="edit.png"
+                                Grid.Column="2"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=EdytujProduktCommand}" 
+                                CommandParameter="{Binding}"
+                                WidthRequest="30"
+                                HeightRequest="30"/>
+                            <ImageButton 
+                                Source="delete.png"
+                                Grid.Column="3"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=UsunProduktCommand}" 
+                                CommandParameter="{Binding}"
+                                WidthRequest="30"
+                                HeightRequest="30"/>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
