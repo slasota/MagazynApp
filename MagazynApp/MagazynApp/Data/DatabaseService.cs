@@ -71,22 +71,27 @@ namespace MagazynApp.Data
         //CRUD PALLET
 
         //Dodawanie palety
-        public async Task<int> AddPalletAsync(Pallete pallet)
+        public async Task<int> AddPalleteAsync(Pallete pallet)
         {
             return await _database.InsertAsync(pallet);
         }
+        //Pobieranie palety
+        public async Task<Pallete> GetPalleteAsync(int id)
+        {
+            return await _database.GetAsync<Pallete>(id);
+        }
         //Pobieranie listy palet posortowanych po dacie
-        public async Task<List<Pallete>> GetPalletsAsync()
+        public async Task<List<Pallete>> GetPalletesAsync()
         {
             return await _database.Table<Pallete>().OrderByDescending(p => p.CreatedAtUtc).ToListAsync();
         }
         //Usuwanie palety
-        public async Task<int> DeletePalletAsync(Pallete pallet)
+        public async Task<int> DeletePalleteAsync(Pallete pallet)
         {
             return await _database.DeleteAsync(pallet);
         }
         //Edytowanie palety
-        public async Task EditPalletAsync(Pallete pallet)
+        public async Task EditPalleteAsync(Pallete pallet)
         {
             if (pallet == null) throw new ArgumentNullException();
 

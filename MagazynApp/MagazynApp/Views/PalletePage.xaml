@@ -7,24 +7,28 @@
 
     <VerticalStackLayout Padding="10">
         <Button Text="Dodaj paletę!" Command="{Binding AddPalleteCommand}"/>
-        <CollectionView  ItemsSource="{Binding Pallets}">
+        <CollectionView  ItemsSource="{Binding Palletes}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Stroke="Gray" StrokeThickness="1" StrokeShape="RoundRectangle 10">
                         <Grid Padding="10" ColumnDefinitions="*, Auto">
                             <StackLayout>
-                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
-                                <Label Text="{Binding CreatedAt, StringFormat='0:dd.MM.yyyy HH:mm'}" 
+                                <Label Text="{Binding PalleteName}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding CreatedAtUtc, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" 
                                        FontSize="14" 
                                        TextColor="Gray"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Grid.Column="1">
                                 <ImageButton Source="edit.png" 
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalleteViewModel}}, Path=EditPalleteCommand}" 
-                                             CommandParameter="{Binding}"/>
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=EditPalleteCommand}" 
+                                             CommandParameter="{Binding}"
+                                             WidthRequest="30"
+                                             HeightRequest="30"/>
                                 <ImageButton Source="delete.png"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalleteViewModel}}, Path=DeletePalleteCommad}"
-                                             CommandParameter="{Binding}"/>
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=DeletePalleteCommand}"
+                                             CommandParameter="{Binding}"
+                                             WidthRequest="30"
+                                             HeightRequest="30"/>
                             </StackLayout>
                         </Grid>
                     </Border>

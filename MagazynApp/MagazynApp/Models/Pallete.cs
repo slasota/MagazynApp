@@ -13,6 +13,6 @@ namespace MagazynApp.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string  PalleteName { get; set; }
-        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAtUtc { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow,DateTimeKind.Utc);
     }
 }

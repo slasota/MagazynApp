@@ -23,6 +23,10 @@ namespace MagazynApp.Droid
             builder.Services.AddTransient<DodajProduktViewModel>();
             builder.Services.AddTransient<ProduktyViewModel>();
             builder.Services.AddTransient<ProduktyPage>();
+            builder.Services.AddTransient<PalletesViewModel>();
+            builder.Services.AddTransient<PalletePage>();  
+            builder.Services.AddTransient<AddEditPalletePage>();
+            builder.Services.AddTransient<AddEditPalleteViewModel>();
 
             return builder.Build();
         }
