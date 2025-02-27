@@ -17,7 +17,7 @@ public partial class PalletePage : ContentPage
 
         if(BindingContext is PalletesViewModel viewModel)
         {
-            await viewModel.LoadPalletesAsync();
+            await viewModel.LoadPalletesAsyncOrderedDescByCreatedAtUtc();
         }
     }
 }

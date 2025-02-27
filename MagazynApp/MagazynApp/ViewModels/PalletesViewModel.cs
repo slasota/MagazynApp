@@ -22,11 +22,11 @@ namespace MagazynApp.ViewModels
         public PalletesViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            MainThread.BeginInvokeOnMainThread(async () => await LoadPalletesAsync());
+            MainThread.BeginInvokeOnMainThread(async () => await LoadPalletesAsyncOrderedDescByCreatedAtUtc());
             
         }
 
-        public async Task LoadPalletesAsync()
+        public async Task LoadPalletesAsyncOrderedDescByCreatedAtUtc()
         {
             try
             {
@@ -39,11 +39,12 @@ namespace MagazynApp.ViewModels
                     pallete.CreatedAtUtc = pallete.CreatedAtUtc.ToLocalTime();
                     Palletes.Add(pallete);
                 }
+                Palletes.OrderByDescending(p => p.CreatedAtUtc).ToList();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error while loading palletes: {ex.Message}");
-                await Application.Current.MainPage.DisplayAlert("Błąd", "Error while loading palletes", "Ok");
+                await Shell.Current.DisplayAlert("Błąd", "Error while loading palletes", "Ok");
             }
         }
 
@@ -75,8 +76,12 @@ namespace MagazynApp.ViewModels
 
             if (!confirmation) return;  
 
-                await _databaseService.DeletePalleteAsync(pallete);
-                Palletes.Remove(pallete);
+            
+
+            bool success = await _databaseService.DeletePalleteAsync(pallete);
+            if (!success) await Shell.Current.DisplayAlert("Błąd", "Błąd podczas usuwania palety", "Ok");
+            else
+            { Palletes.Remove(pallete); }
             
         }
     }

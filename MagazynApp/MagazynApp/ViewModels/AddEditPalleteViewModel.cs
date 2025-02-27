@@ -48,7 +48,7 @@ namespace MagazynApp.ViewModels
         {
             if (String.IsNullOrWhiteSpace(PalleteName))
             {
-                await Application.Current.MainPage.DisplayAlert("Błąd", "Podaj nazwę palety!", "Ok");
+                await Shell.Current.DisplayAlert("Błąd", "Podaj nazwę palety!", "Ok");
                 return;
             }
             if (PalleteId > 0)
@@ -58,7 +58,20 @@ namespace MagazynApp.ViewModels
                 {
                     pallete.PalleteName = PalleteName;
                     //pallete.CreatedAtUtc = PalleteCreatedAtUtc;
-                    await _databaseService.EditPalleteAsync(pallete);
+                    bool success = await _databaseService.EditPalleteAsync(pallete);
+
+                    if(success)
+                    {
+                        await Shell.Current.GoToAsync("..");
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Błąd", "Błąd podczas edytowania palety", "Ok");
+                    }
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Błąd", "Błąd podczas pobrania palety do edycji", "Ok");
                 }
             }
             else
@@ -68,11 +81,20 @@ namespace MagazynApp.ViewModels
                     PalleteName = PalleteName,
                     CreatedAtUtc = DateTime.UtcNow
                 };
-                await _databaseService.AddPalleteAsync(pallete);
+                
+                bool success = await _databaseService.AddPalleteAsync(pallete);
+
+                if(success)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Błąd", "Błąd podczas dodawania palety", "Ok");
+                }
 
 
             }
-            await Shell.Current.GoToAsync("..");
         }
 
         private async Task GetPallete(int palleteId)
