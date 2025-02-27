@@ -34,19 +34,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\PalletePage.xaml.cs">
-	    <DependentUpon>PalletePage.xaml</DependentUpon>
+	  <Compile Update="Views\AddEditPalletPage.xaml.cs">
+	    <DependentUpon>AddEditPalletPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PalletPage.xaml.cs">
+	    <DependentUpon>PalletPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AddEditPalletePage.xaml">
+	  <MauiXaml Update="Views\AddEditPalletPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DodajProduktPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PalletePage.xaml">
+	  <MauiXaml Update="Views\PalletPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProduktyPage.xaml">

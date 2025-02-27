@@ -8,7 +8,7 @@ namespace MagazynApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(DodajProduktPage), typeof(DodajProduktPage));
-            Routing.RegisterRoute(nameof(AddEditPalletePage), typeof(AddEditPalletePage));
+            Routing.RegisterRoute(nameof(AddEditPalletPage), typeof(AddEditPalletPage));
         }
     }
 }

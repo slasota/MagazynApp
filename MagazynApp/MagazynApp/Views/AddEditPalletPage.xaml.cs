@@ -2,9 +2,9 @@ using MagazynApp.ViewModels;
 
 namespace MagazynApp.Views;
 
-public partial class AddEditPalletePage : ContentPage
+public partial class AddEditPalletPage : ContentPage
 {
-	public AddEditPalletePage(AddEditPalleteViewModel viewModel)
+	public AddEditPalletPage(AddEditPalletViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;

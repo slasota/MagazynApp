@@ -20,7 +20,7 @@ namespace MagazynApp.Data
         public async Task InitalizeAsync()
         {
             await _database.CreateTableAsync<Produkt>();
-            await _database.CreateTableAsync<Pallete>();
+            await _database.CreateTableAsync<Pallet>();
             await _database.CreateTableAsync<PaletaProdukt>();
             await _database.CreateIndexAsync<Produkt>(p => p.Id);
         }
@@ -71,47 +71,47 @@ namespace MagazynApp.Data
         //CRUD PALLET
 
         //Dodawanie palety
-        public async Task<bool> AddPalleteAsync(Pallete pallete)
+        public async Task<bool> AddPalletAsync(Pallet pallet)
         {
             try
             {
-                int rowsAffected = await _database.InsertAsync(pallete);
+                int rowsAffected = await _database.InsertAsync(pallet);
                 return rowsAffected > 0;
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error adding pallete: {e.Message}");
+                Console.WriteLine($"Error adding pallet: {e.Message}");
                 return false;
             }
         }
         //Pobieranie palety
-        public async Task<Pallete> GetPalleteAsync(int id)
+        public async Task<Pallet> GetPalletAsync(int id)
         {
             try
             {
-                return await _database.GetAsync<Pallete>(id);
+                return await _database.GetAsync<Pallet>(id);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error getting pallete: {e.Message}");
+                Console.WriteLine($"Error getting pallet: {e.Message}");
                 return null;
             }
 
         }
         //Pobieranie listy palet posortowanych po dacie
-        public async Task<List<Pallete>> GetPalletesAsync()
+        public async Task<List<Pallet>> GetPalletesAsync()
         {
             try { 
-                return await _database.Table<Pallete>().ToListAsync();
+                return await _database.Table<Pallet>().ToListAsync();
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error getting palletes: {e.Message}");
-                return new List<Pallete>();
+                return new List<Pallet>();
             }   
         }
         //Usuwanie palety
-        public async Task<bool> DeletePalleteAsync(Pallete pallet)
+        public async Task<bool> DeletePalletAsync(Pallet pallet)
         {
             try
             {
@@ -120,12 +120,12 @@ namespace MagazynApp.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: DeletePallete: {ex}");
+                Console.WriteLine($"Error: DeletePallet: {ex}");
                 return false;
             }
         }
         //Edytowanie palety
-        public async Task<bool> EditPalleteAsync(Pallete pallet)
+        public async Task<bool> EditPalletAsync(Pallet pallet)
         {
             if (pallet == null) throw new ArgumentNullException();
 
@@ -136,7 +136,7 @@ namespace MagazynApp.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error editing pallete: {e.Message}");
+                Console.WriteLine($"Error editing pallet: {e.Message}");
                 return false;
             }
         }

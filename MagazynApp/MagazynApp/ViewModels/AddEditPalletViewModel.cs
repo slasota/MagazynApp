@@ -10,55 +10,55 @@ using MagazynApp.Models;
 
 namespace MagazynApp.ViewModels
 {
-    [QueryProperty(nameof(PalleteId), "palleteId")]
-    public partial class AddEditPalleteViewModel : ObservableObject
+    [QueryProperty(nameof(PalletId), "palletId")]
+    public partial class AddEditPalletViewModel : ObservableObject
     {
         private readonly DatabaseService _databaseService;
 
-        private static DateTime palleteCreatedAtUtc = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
+        private static DateTime palletCreatedAtUtc = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
         [ObservableProperty]
-        private int _palleteId;
+        private int _palletId;
         [ObservableProperty]
-        private string _palleteName;
+        private string _palletName;
         [ObservableProperty]
-        private DateTime _palleteCreatedAtLocal = palleteCreatedAtUtc.ToLocalTime();
+        private DateTime _palletCreatedAtLocal = palletCreatedAtUtc.ToLocalTime();
         
         
         [ObservableProperty]
         private string _addEditButtonTitle = "Dodaj paletę";
 
-        public AddEditPalleteViewModel(DatabaseService database)
+        public AddEditPalletViewModel(DatabaseService database)
         {
             _databaseService = database;
             
         }
-        partial void OnPalleteIdChanged(int value)
+        partial void OnPalletIdChanged(int value)
         {
-            Console.WriteLine($"DEBUG: Otrzymano palleteId: {value}");
+            Console.WriteLine($"DEBUG: Otrzymano palletId: {value}");
             if (value > 0)
             {
                 AddEditButtonTitle = "Zapisz zmiany";
-                Task.Run(async () => await GetPallete(value));
+                Task.Run(async () => await GetPallet(value));
             }
         }
 
         [RelayCommand]
-        public async Task AddEditPallete()
+        public async Task AddEditPallet()
         {
-            if (String.IsNullOrWhiteSpace(PalleteName))
+            if (String.IsNullOrWhiteSpace(PalletName))
             {
                 await Shell.Current.DisplayAlert("Błąd", "Podaj nazwę palety!", "Ok");
                 return;
             }
-            if (PalleteId > 0)
+            if (PalletId > 0)
             {
-                var pallete = await _databaseService.GetPalleteAsync(PalleteId);
-                if (pallete != null)
+                var pallet = await _databaseService.GetPalletAsync(PalletId);
+                if (pallet != null)
                 {
-                    pallete.PalleteName = PalleteName;
-                    //pallete.CreatedAtUtc = PalleteCreatedAtUtc;
-                    bool success = await _databaseService.EditPalleteAsync(pallete);
+                    pallet.PalletName = PalletName;
+                    //pallet.CreatedAtUtc = PalletCreatedAtUtc;
+                    bool success = await _databaseService.EditPalletAsync(pallet);
 
                     if(success)
                     {
@@ -76,13 +76,13 @@ namespace MagazynApp.ViewModels
             }
             else
             {
-                var pallete = new Pallete
+                var pallet = new Pallet
                 {
-                    PalleteName = PalleteName,
+                    PalletName = PalletName,
                     CreatedAtUtc = DateTime.UtcNow
                 };
                 
-                bool success = await _databaseService.AddPalleteAsync(pallete);
+                bool success = await _databaseService.AddPalletAsync(pallet);
 
                 if(success)
                 {
@@ -97,15 +97,15 @@ namespace MagazynApp.ViewModels
             }
         }
 
-        private async Task GetPallete(int palleteId)
+        private async Task GetPallet(int palletId)
         {
             try
             {
-                var pallete = await _databaseService.GetPalleteAsync(palleteId);
-                if (pallete != null)
+                var pallet = await _databaseService.GetPalletAsync(palletId);
+                if (pallet != null)
                 {
-                    PalleteName = pallete.PalleteName;
-                    PalleteCreatedAtLocal = pallete.CreatedAtUtc.ToLocalTime();
+                    PalletName = pallet.PalletName;
+                    PalletCreatedAtLocal = pallet.CreatedAtUtc.ToLocalTime();
                 }
             }
             catch (Exception ex)

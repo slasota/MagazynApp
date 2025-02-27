@@ -14,7 +14,7 @@
         </Tab>
         <Tab Title="Palety" Icon="pallet.png">
             <ShellContent
-            ContentTemplate="{DataTemplate views:PalletePage}"
+            ContentTemplate="{DataTemplate views:PalletPage}"
             Route="PaletyPage" />
         </Tab>
         <Tab Title="Produkty" Icon="package_2.png">

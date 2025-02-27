@@ -17,7 +17,7 @@ namespace MagazynApp.ViewModels
         private readonly DatabaseService _databaseService;
 
         [ObservableProperty]
-        private ObservableCollection<Pallete> _palletes = new();
+        private ObservableCollection<Pallet> _palletes = new();
 
         public PalletesViewModel(DatabaseService databaseService)
         {
@@ -34,10 +34,10 @@ namespace MagazynApp.ViewModels
 
                 Palletes.Clear();
 
-                foreach (var pallete in listPallet)
+                foreach (var pallet in listPallet)
                 {
-                    pallete.CreatedAtUtc = pallete.CreatedAtUtc.ToLocalTime();
-                    Palletes.Add(pallete);
+                    pallet.CreatedAtUtc = pallet.CreatedAtUtc.ToLocalTime();
+                    Palletes.Add(pallet);
                 }
                 Palletes.OrderByDescending(p => p.CreatedAtUtc).ToList();
             }
@@ -49,27 +49,27 @@ namespace MagazynApp.ViewModels
         }
 
         [RelayCommand]
-        public async Task AddPallete()
+        public async Task AddPallet()
         {
-            await Shell.Current.GoToAsync(nameof(AddEditPalletePage));
+            await Shell.Current.GoToAsync(nameof(AddEditPalletPage));
 
         }
 
         [RelayCommand]
-        public async Task EditPallete(Pallete pallete)
+        public async Task EditPallet(Pallet pallet)
         {
-            await Shell.Current.GoToAsync($"AddEditPalletePage?palleteId={pallete.Id}");
+            await Shell.Current.GoToAsync($"AddEditPalletPage?palletId={pallet.Id}");
         }
 
         [RelayCommand]
-        public async Task DeletePallete(Pallete pallete)
+        public async Task DeletePallet(Pallet pallet)
         {
 
-            if (pallete == null) return;
+            if (pallet == null) return;
 
             bool confirmation = await Shell.Current.DisplayAlert(
                 "Usuń paletę",
-                $"Czy na pewno chcesz usunąć {pallete.PalleteName}?",
+                $"Czy na pewno chcesz usunąć {pallet.PalletName}?",
                 "Tak",
                 "Nie"
                 );
@@ -78,10 +78,10 @@ namespace MagazynApp.ViewModels
 
             
 
-            bool success = await _databaseService.DeletePalleteAsync(pallete);
+            bool success = await _databaseService.DeletePalletAsync(pallet);
             if (!success) await Shell.Current.DisplayAlert("Błąd", "Błąd podczas usuwania palety", "Ok");
             else
-            { Palletes.Remove(pallete); }
+            { Palletes.Remove(pallet); }
             
         }
     }

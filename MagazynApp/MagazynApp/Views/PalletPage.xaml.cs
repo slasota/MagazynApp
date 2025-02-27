@@ -3,9 +3,9 @@ using MagazynApp.ViewModels;
 
 namespace MagazynApp.Views;
 
-public partial class PalletePage : ContentPage
+public partial class PalletPage : ContentPage
 {
-	public PalletePage(PalletesViewModel viewModel)
+	public PalletPage(PalletesViewModel viewModel)
 	{
 		BindingContext = viewModel;
         InitializeComponent();
@@ -19,5 +19,10 @@ public partial class PalletePage : ContentPage
         {
             await viewModel.LoadPalletesAsyncOrderedDescByCreatedAtUtc();
         }
+    }
+
+    private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+    {
+
     }
 }

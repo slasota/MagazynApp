@@ -8,11 +8,11 @@ using SQLite;
 
 namespace MagazynApp.Models
 {
-    public class Pallete
+    public class Pallet
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public string  PalleteName { get; set; }
+        public string  PalletName { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow,DateTimeKind.Utc);
     }
 }
