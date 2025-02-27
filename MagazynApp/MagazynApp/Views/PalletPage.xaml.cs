@@ -17,12 +17,8 @@ public partial class PalletPage : ContentPage
 
         if(BindingContext is PalletesViewModel viewModel)
         {
-            await viewModel.LoadPalletesAsyncOrderedDescByCreatedAtUtc();
+            await viewModel.LoadPalletesAsync();
         }
     }
 
-    private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
-    {
-
-    }
 }

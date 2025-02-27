@@ -5,10 +5,10 @@
              Title="AddEditPalletePage">
     
     <VerticalStackLayout Padding="10">
-        <Entry Placeholder="Nazwa palety" Text="{Binding PalleteName}"/>
-        <Entry Placeholder="Data utworzenia" IsEnabled="False" Text="{Binding PalleteCreatedAtLocal}"/>
+        <Entry Placeholder="Nazwa palety" Text="{Binding PalletName}"/>
+        <Entry Placeholder="Data utworzenia" IsEnabled="False" Text="{Binding PalletCreatedAtLocal}"/>
 
-        <Button Text="{Binding AddEditButtonTitle}" Command="{Binding AddEditPalleteCommand}" Margin="10"/>
+        <Button Text="{Binding AddEditButtonTitle}" Command="{Binding AddEditPalletCommand}" Margin="10"/>
         <Button Text="Anuluj" Command="{Binding CancelCommand}" Margin="10"/>
 
     </VerticalStackLayout>

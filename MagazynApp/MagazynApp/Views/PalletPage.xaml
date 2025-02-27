@@ -5,35 +5,55 @@
              x:Class="MagazynApp.Views.PalletPage"
              Title="Palety">
 
-    <VerticalStackLayout Padding="10">
-        <Button Text="Dodaj paletę!" Command="{Binding AddPalletCommand}"/>
-        <CollectionView ItemsSource="{Binding Palletes}">
+    <Grid RowDefinitions="Auto, Auto,*">
+        <Grid Grid.Row="0" Margin="10" ColumnDefinitions="*, Auto, Auto">
+            <Button Grid.Column="0" 
+                    Text="Dodaj paletę!" 
+                    Command="{Binding AddPalletCommand}"
+                    Margin="1"/>
+            <ImageButton Grid.Column="1" 
+                         Source="swapsort.png" 
+                         Command="{Binding ToggleSortOrderCommand}" 
+                         HeightRequest="44" 
+                         WidthRequest="44"
+                         Margin="1"
+                         BackgroundColor="#512BD4"/>
+            <ImageButton Grid.Column="2" 
+                         Source="search.png" 
+                         Command="{Binding ToggleSearchBarVisibilityCommand}" 
+                         HeightRequest="44" 
+                         WidthRequest="44"
+                         Margin="1"
+                         BackgroundColor="#512BD4"/>
+        </Grid>
+        <SearchBar Text="{Binding SearchText}" Grid.Row="1" IsVisible="{Binding SearchBarVisible}" Placeholder="Wyszukaj paletę..."/>
+            <CollectionView Grid.Row="2" ItemsSource="{Binding Palletes}" HeightRequest="-1">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Stroke="Gray" StrokeThickness="1" StrokeShape="RoundRectangle 10">
-                        <Grid Padding="10" ColumnDefinitions="*, Auto">
+                    <Border Stroke="Gray" StrokeThickness="1" StrokeShape="RoundRectangle 10" Margin="1">
+                        <Grid Padding="10" ColumnDefinitions="*, Auto" RowDefinitions="Auto">
                             <StackLayout>
                                 <Label Text="{Binding PalletName}" FontSize="18" FontAttributes="Bold"/>
                                 <Label Text="{Binding CreatedAtUtc, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" 
-                                       FontSize="14" 
-                                       TextColor="Gray"/>
+                                           FontSize="14" 
+                                           TextColor="Gray"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Grid.Column="1">
                                 <ImageButton Source="edit.png" 
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=EditPalletCommand}" 
-                                             CommandParameter="{Binding}"
-                                             WidthRequest="30"
-                                             HeightRequest="30"/>
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=EditPalletCommand}" 
+                                                 CommandParameter="{Binding}"
+                                                 WidthRequest="30"
+                                                 HeightRequest="30"/>
                                 <ImageButton Source="delete.png"
-                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=DeletePalletCommand}"
-                                             CommandParameter="{Binding}"
-                                             WidthRequest="30"
-                                             HeightRequest="30"/>
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PalletesViewModel}}, Path=DeletePalletCommand}"
+                                                 CommandParameter="{Binding}"
+                                                 WidthRequest="30"
+                                                 HeightRequest="30"/>
                             </StackLayout>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
