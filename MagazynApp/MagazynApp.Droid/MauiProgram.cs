@@ -19,11 +19,11 @@ namespace MagazynApp.Droid
             // Rejestracja DatabaseService w Depedence Injection DI
             builder.Services.AddSingleton<DatabaseService>(s => new DatabaseService(dbPath));
 
-            builder.Services.AddTransient<DodajProduktPage>();
-            builder.Services.AddTransient<DodajProduktViewModel>();
-            builder.Services.AddTransient<ProduktyViewModel>();
-            builder.Services.AddTransient<ProduktyPage>();
-            builder.Services.AddTransient<PalletesViewModel>();
+            builder.Services.AddTransient<AddProductPage>();
+            builder.Services.AddTransient<AddProductViewModel>();
+            builder.Services.AddTransient<ProductsViewModel>();
+            builder.Services.AddTransient<ProductsPage>();
+            builder.Services.AddTransient<PalletsViewModel>();
             builder.Services.AddTransient<PalletPage>();  
             builder.Services.AddTransient<AddEditPalletPage>();
             builder.Services.AddTransient<AddEditPalletViewModel>();

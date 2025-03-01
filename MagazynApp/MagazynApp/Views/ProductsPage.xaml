@@ -3,18 +3,18 @@
     <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MagazynApp.ViewModels"
-             x:Class="MagazynApp.Views.ProduktyPage"
+             x:Class="MagazynApp.Views.ProductsPage"
              Title="Lista produktów"
                  x:Name="Page">
 
     <Grid RowDefinitions="Auto, *" Padding="10">
         <StackLayout Grid.Row="0">
-            <Button Text="Odśwież" Command="{Binding OdswiezCommand}" />
-            <Button Text="Dodaj produkt" Command="{Binding DodajProduktPageCommand}"/>
+            <Button Text="Odśwież" Command="{Binding RefreshCommand}" />
+            <Button Text="Dodaj produkt" Command="{Binding AddProductPageCommand}"/>
             <Button Text="Usuń wszystkie" Command="{Binding DeleteAllProductsCommand}"/>
         </StackLayout>
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Produkty}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Products}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Stroke="Gray" StrokeThickness="1" Padding="20" Margin="5" StrokeShape="RoundRectangle 10,10,10,10">
@@ -40,21 +40,21 @@
                                 VerticalOptions="Center"/>
                             <Label 
                                 Grid.Column="1" 
-                                Text="{Binding Nazwa}" 
+                                Text="{Binding Name}" 
                                 FontSize="20"
                                 LineBreakMode="WordWrap"
                                 VerticalOptions="Center"/>
                             <ImageButton 
                                 Source="edit.png"
                                 Grid.Column="2"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=EdytujProduktCommand}" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=EditProductCommand}" 
                                 CommandParameter="{Binding}"
                                 WidthRequest="30"
                                 HeightRequest="30"/>
                             <ImageButton 
                                 Source="delete.png"
                                 Grid.Column="3"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProduktyViewModel}}, Path=UsunProduktCommand}" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductsViewModel}}, Path=DeleteProductCommand}" 
                                 CommandParameter="{Binding}"
                                 WidthRequest="30"
                                 HeightRequest="30"/>

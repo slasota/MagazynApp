@@ -19,7 +19,7 @@
         </Tab>
         <Tab Title="Produkty" Icon="package_2.png">
             <ShellContent
-            ContentTemplate="{DataTemplate views:ProduktyPage}"
+            ContentTemplate="{DataTemplate views:ProductsPage}"
             Route="ProduktyPage" />
         </Tab>
     </TabBar>

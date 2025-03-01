@@ -12,7 +12,7 @@ using MagazynApp.Views;
 
 namespace MagazynApp.ViewModels
 {
-    public partial class PalletesViewModel : ObservableObject
+    public partial class PalletsViewModel : ObservableObject
     {
         private readonly DatabaseService _databaseService;
 
@@ -28,12 +28,12 @@ namespace MagazynApp.ViewModels
         private bool _searchBarVisible = false;
 
         [ObservableProperty]
-        private ObservableCollection<Pallet> _palletes = new();
+        private ObservableCollection<Pallet> _pallets = new();
 
-        public PalletesViewModel(DatabaseService databaseService)
+        public PalletsViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            MainThread.BeginInvokeOnMainThread(async () => await LoadPalletesAsync());
+            MainThread.BeginInvokeOnMainThread(async () => await LoadPalletsAsync());
         }
 
 
@@ -52,24 +52,24 @@ namespace MagazynApp.ViewModels
                     await Task.Delay(250, token);
                     if (!token.IsCancellationRequested)
                     {
-                        MainThread.BeginInvokeOnMainThread(async () => await FilterPalletes());
+                        MainThread.BeginInvokeOnMainThread(async () => await FilterPallets());
                     }
                 }
                 catch (TaskCanceledException) { }
             });
         }
 
-        private async Task FilterPalletes()
+        private async Task FilterPallets()
         {
 
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
-                var filtered = Palletes.Where(p => p.PalletName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
-                Palletes = new ObservableCollection<Pallet>(filtered);
+                var filtered = _listPallet.Where(p => p.PalletName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+                Pallets = new ObservableCollection<Pallet>(filtered);
             }
             else
             {
-                Palletes = new ObservableCollection<Pallet>(_listPallet);   
+                Pallets = new ObservableCollection<Pallet>(_listPallet);   
             }
 
         }
@@ -79,8 +79,8 @@ namespace MagazynApp.ViewModels
         {
             _isAsceding = !_isAsceding;
             MainThread.BeginInvokeOnMainThread(async () => {
-                await LoadPalletesAsync();
-                await FilterPalletes();
+                await LoadPalletsAsync();
+                await FilterPallets();
                 });
             
         }
@@ -91,22 +91,23 @@ namespace MagazynApp.ViewModels
             SearchBarVisible = !SearchBarVisible;
         }
 
-        public async Task LoadPalletesAsync()
+        public async Task LoadPalletsAsync()
         {
             try
             {
-                _listPallet = await _databaseService.GetPalletesAsync();
+                _listPallet = await _databaseService.GetPalletsAsync();
 
                 if (_isAsceding)
                     _listPallet = _listPallet.OrderBy(p => p.CreatedAtUtc).ToList();
                 else
                     _listPallet = _listPallet.OrderByDescending(p => p.CreatedAtUtc).ToList();
-                Palletes.Clear();
+
+                Pallets.Clear();
 
                 foreach (var pallet in _listPallet)
                 {
                     pallet.CreatedAtUtc = pallet.CreatedAtUtc.ToLocalTime();
-                    Palletes.Add(pallet);
+                    Pallets.Add(pallet);
                 }
 
 
@@ -137,21 +138,21 @@ namespace MagazynApp.ViewModels
 
             if (pallet == null) return;
 
-            bool confirmation = await Shell.Current.DisplayAlert(
+            bool isConfirmed = await Shell.Current.DisplayAlert(
                 "Usuń paletę",
                 $"Czy na pewno chcesz usunąć {pallet.PalletName}?",
                 "Tak",
                 "Nie"
                 );
 
-            if (!confirmation) return;
+            if (!isConfirmed) return;
 
 
 
             bool success = await _databaseService.DeletePalletAsync(pallet);
             if (!success) await Shell.Current.DisplayAlert("Błąd", "Błąd podczas usuwania palety", "Ok");
             else
-            { Palletes.Remove(pallet); }
+            { Pallets.Remove(pallet); }
 
         }
 

@@ -7,7 +7,7 @@ namespace MagazynApp
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(DodajProduktPage), typeof(DodajProduktPage));
+            Routing.RegisterRoute(nameof(AddProductPage), typeof(AddProductPage));
             Routing.RegisterRoute(nameof(AddEditPalletPage), typeof(AddEditPalletPage));
         }
     }

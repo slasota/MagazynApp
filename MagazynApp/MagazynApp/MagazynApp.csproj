@@ -37,8 +37,14 @@
 	  <Compile Update="Views\AddEditPalletPage.xaml.cs">
 	    <DependentUpon>AddEditPalletPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\AddProductPage.xaml.cs">
+	    <DependentUpon>AddProductPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\PalletPage.xaml.cs">
 	    <DependentUpon>PalletPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ProductsPage.xaml.cs">
+	    <DependentUpon>ProductsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -46,13 +52,13 @@
 	  <MauiXaml Update="Views\AddEditPalletPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\DodajProduktPage.xaml">
+	  <MauiXaml Update="Views\AddProductPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PalletPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ProduktyPage.xaml">
+	  <MauiXaml Update="Views\ProductsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

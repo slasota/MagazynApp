@@ -13,28 +13,28 @@ using MagazynApp.Models;
 
 namespace MagazynApp.ViewModels
 {
-    public partial class ProduktyViewModel : ObservableObject
+    public partial class ProductsViewModel : ObservableObject
     {
 
         private readonly DatabaseService _databaseService;
         [ObservableProperty]
-        private ObservableCollection<Produkt> _produkty = new();
+        private ObservableCollection<Product> _products = new();
 
         //public bool CzyWczytuje { get; private set; }
 
-        public ProduktyViewModel(DatabaseService databaseService)
+        public ProductsViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            MainThread.BeginInvokeOnMainThread(async () => await WczytajProduktyAsync());
+            MainThread.BeginInvokeOnMainThread(async () => await GetProductsAsync());
 
         }
 
         [RelayCommand]
-        public async Task Odswiez()
+        public async Task Refresh()
         {
-            await WczytajProduktyAsync();
+            await GetProductsAsync();
         }
-        public async Task WczytajProduktyAsync()
+        public async Task GetProductsAsync()
         {
 
             try
@@ -44,10 +44,10 @@ namespace MagazynApp.ViewModels
                     return await _databaseService.PobierzProduktyAsync();
                 });
 
-                Produkty.Clear();
+                Products.Clear();
                 foreach (var item in listaProduktow)
                 {
-                        Produkty.Add(item);
+                        Products.Add(item);
                 }
                 
             }
@@ -67,9 +67,9 @@ namespace MagazynApp.ViewModels
 
         //    //MainThread.BeginInvokeOnMainThread(() =>
         //    //{
-        //    foreach (var produkt in noweProdukty)
+        //    foreach (var product in noweProdukty)
         //    { 
-        //        Produkty.Add(produkt);
+        //        Produkty.Add(product);
         //    }
         //    //});
 
@@ -77,34 +77,34 @@ namespace MagazynApp.ViewModels
         //}
 
         [RelayCommand]
-        public async Task DodajProduktPage()
+        public async Task AddProductPage()
         {
-            await Shell.Current.GoToAsync(nameof(DodajProduktPage));
+            await Shell.Current.GoToAsync(nameof(AddProductPage));
         }
 
         [RelayCommand]
-        public async Task EdytujProdukt(Produkt produkt)
+        public async Task EditProduct(Product product)
         {
-            Console.WriteLine($"DEBUG: Próba edycji produktu: {produkt.Id}");
-            await Shell.Current.GoToAsync($"DodajProduktPage?produktId={produkt.Id}");
+            Console.WriteLine($"DEBUG: Próba edycji produktu: {product.Id}");
+            await Shell.Current.GoToAsync($"AddProductPage?productId={product.Id}");
         }
         [RelayCommand]
-        public async Task UsunProdukt(Produkt produkt)
+        public async Task DeleteProduct(Product product)
         {
-            if (produkt == null) return;
+            if (product == null) return;
 
-            bool potwierdzenie = await Shell.Current.DisplayAlert(
-                "Usuń produkt",
-                $"Czy na pewno chcesz usunąć {produkt.Nazwa}?",
+            bool isConfirmed = await Shell.Current.DisplayAlert(
+                "Usuń product",
+                $"Czy na pewno chcesz usunąć {product.Name}?",
                 "Tak",
                 "Nie"
                 );
 
-            if (!potwierdzenie) return;
+            if (!isConfirmed) return;
 
-            await _databaseService.UsunProduktAsync(produkt);
+            await _databaseService.UsunProduktAsync(product);
 
-            Produkty.Remove(produkt);
+            Products.Remove(product);
         }
 
         [RelayCommand]
@@ -118,7 +118,7 @@ namespace MagazynApp.ViewModels
                 );
             if (!potwierdzenie) return;
             await _databaseService.UsunWysztkieProdukty();
-            Produkty.Clear();
+            Products.Clear();
         }
     }
 }

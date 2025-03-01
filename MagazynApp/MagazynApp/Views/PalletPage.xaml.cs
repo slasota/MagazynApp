@@ -5,7 +5,7 @@ namespace MagazynApp.Views;
 
 public partial class PalletPage : ContentPage
 {
-	public PalletPage(PalletesViewModel viewModel)
+	public PalletPage(PalletsViewModel viewModel)
 	{
 		BindingContext = viewModel;
         InitializeComponent();
@@ -15,9 +15,9 @@ public partial class PalletPage : ContentPage
     {
         base.OnAppearing();
 
-        if(BindingContext is PalletesViewModel viewModel)
+        if(BindingContext is PalletsViewModel viewModel)
         {
-            await viewModel.LoadPalletesAsync();
+            await viewModel.LoadPalletsAsync();
         }
     }
 

@@ -19,53 +19,53 @@ namespace MagazynApp.Data
 
         public async Task InitalizeAsync()
         {
-            await _database.CreateTableAsync<Produkt>();
+            await _database.CreateTableAsync<Product>();
             await _database.CreateTableAsync<Pallet>();
-            await _database.CreateTableAsync<PaletaProdukt>();
-            await _database.CreateIndexAsync<Produkt>(p => p.Id);
+            await _database.CreateTableAsync<PalletProduct>();
+            await _database.CreateIndexAsync<Product>(p => p.Id);
         }
 
         // Dodanie nowego produktu
-        public async Task<int> DodajProduktAsync(Produkt produkt)
+        public async Task<int> DodajProduktAsync(Product produkt)
         {
             return await _database.InsertAsync(produkt);
         }
 
         // Pobranie produktów
-        public async Task<List<Produkt>> PobierzProduktyAsync()
+        public async Task<List<Product>> PobierzProduktyAsync()
         {
-            return await _database.Table<Produkt>().ToListAsync();
+            return await _database.Table<Product>().ToListAsync();
         }
 
-        //public async Task<List<Produkt>> PobierzProduktyAsync(int offset, int limit)
+        //public async Task<List<Product>> PobierzProduktyAsync(int offset, int limit)
         //{
-        //    return await _database.Table<Produkt>()
+        //    return await _database.Table<Product>()
         //        .OrderBy(p => p.Id)
         //        .Skip(offset)
         //        .Take(limit)
         //        .ToListAsync();
         //}
 
-        public async Task AktualizujProduktAsync(Produkt produkt)
+        public async Task AktualizujProduktAsync(Product produkt)
         {
             if (produkt == null) throw new ArgumentNullException(nameof(produkt));
 
             await _database.UpdateAsync(produkt);
         }
 
-        public async Task<Produkt> PobierzProduktAsync(int id)
+        public async Task<Product> PobierzProduktAsync(int id)
         {
-            return await _database.GetAsync<Produkt>(id);
+            return await _database.GetAsync<Product>(id);
         }
 
-        public async Task<int> UsunProduktAsync(Produkt produkt)
+        public async Task<int> UsunProduktAsync(Product produkt)
         {
             return await _database.DeleteAsync(produkt);
         }
 
         public async Task<int> UsunWysztkieProdukty()
         {
-            return await _database.DeleteAllAsync<Produkt>();
+            return await _database.DeleteAllAsync<Product>();
         }
 
         //CRUD PALLET
@@ -99,7 +99,7 @@ namespace MagazynApp.Data
 
         }
         //Pobieranie listy palet posortowanych po dacie
-        public async Task<List<Pallet>> GetPalletesAsync()
+        public async Task<List<Pallet>> GetPalletsAsync()
         {
             try { 
                 return await _database.Table<Pallet>().ToListAsync();

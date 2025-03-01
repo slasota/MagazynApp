@@ -3,9 +3,9 @@ using MagazynApp.ViewModels;
 
 namespace MagazynApp.Views;
 
-public partial class ProduktyPage : ContentPage
+public partial class ProductsPage : ContentPage
 {
-	public ProduktyPage(ProduktyViewModel viewModel)
+	public ProductsPage(ProductsViewModel viewModel)
 	{
 		InitializeComponent();
         BindingContext = viewModel;
@@ -16,9 +16,9 @@ public partial class ProduktyPage : ContentPage
     {
         base.OnAppearing();
 
-        if (BindingContext is ProduktyViewModel viewModel)
+        if (BindingContext is ProductsViewModel viewModel)
         {
-            await viewModel.WczytajProduktyAsync(); // Wczytaj produkty przy wejœciu na stronê
+            await viewModel.GetProductsAsync(); // Wczytaj produkty przy wejœciu na stronê
         }
     }
 }

@@ -4,10 +4,10 @@ using Microsoft.Maui.Platform;
 
 namespace MagazynApp.Views;
 
-public partial class DodajProduktPage : ContentPage
+public partial class AddProductPage : ContentPage
 {
 
-	public DodajProduktPage(DodajProduktViewModel viewModel)
+	public AddProductPage(AddProductViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
